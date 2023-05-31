@@ -1,3 +1,4 @@
+import API_KEY from "./config.js"
 let moviesArrFromLocalStorage = JSON.parse(localStorage.getItem("movies"))
 const watchlistEl = document.getElementById("watchlist")
 document.addEventListener("click" , function(e){
@@ -15,7 +16,7 @@ function removeMovieFromWatchlist(removeId){
 function getWatchlistHtml(){
     if(moviesArrFromLocalStorage.length > 0){
         const promises = moviesArrFromLocalStorage.map(imdbID => {
-        return fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=5727865e&type=movie`)
+        return fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}&type=movie`)
             .then(res => res.json())
             .then(data => {
                 return `
