@@ -14,59 +14,63 @@ function removeMovieFromWatchlist(removeId){
 } 
 
 function getWatchlistHtml(){
-    if(moviesArrFromLocalStorage.length > 0){
-        const promises = moviesArrFromLocalStorage.map(imdbID => {
-        return fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=&type=movie`)
-            .then(res => res.json())
-            .then(data => {
-                return `
-                <div class = "movie">
-                    <img class="movie-poster" src="${data.Poster}">
-                    <div class="movie-info">
-                        <div class="movie-top">
-                            <h3 class="movie-title">${data.Title}</h3>
-                            <div class="movie-rating">
-                                <i class="fa-solid fa-star fa-sm"></i>
-                                <p class="move-rating-score">${data.imdbRating}</p>
+    if(moviesArrFromLocalStorage){
+        if(moviesArrFromLocalStorage.length > 0){
+            const promises = moviesArrFromLocalStorage.map(imdbID => {
+            return fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=&type=movie`)
+                .then(res => res.json())
+                .then(data => {
+                    return `
+                    <div class = "movie">
+                        <img class="movie-poster" src="${data.Poster}">
+                        <div class="movie-info">
+                            <div class="movie-top">
+                                <h3 class="movie-title">${data.Title}</h3>
+                                <div class="movie-rating">
+                                    <i class="fa-solid fa-star fa-sm"></i>
+                                    <p class="move-rating-score">${data.imdbRating}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="movie-mid">
-                            <p class="movie-runtime">${data.Runtime}</p>
-                            <p class="movie-genre">${data.Genre}</p>
-                            <div class="movie-watchlist-action">
-                                <i class="fa-solid fa-circle-minus" data-remove = ${imdbID} ></i>
-                                <p class="watchlist-text">Remove</p>
+                            <div class="movie-mid">
+                                <p class="movie-runtime">${data.Runtime}</p>
+                                <p class="movie-genre">${data.Genre}</p>
+                                <div class="movie-watchlist-action">
+                                    <i class="fa-solid fa-circle-minus" data-remove = ${imdbID} ></i>
+                                    <p class="watchlist-text">Remove</p>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <p class="movie-plot">${data.Plot}</p>
+                            <div>
+                                <p class="movie-plot">${data.Plot}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `
+                `
 
+                })
             })
-        })
-        return Promise.all(promises)
+            return Promise.all(promises)
+        }
     }
 }
 
 
 
 function renderWatchlist() {
-    if (moviesArrFromLocalStorage.length > 0) {
-        getWatchlistHtml()
-        .then(html => watchlistEl.innerHTML =html.join(""))
-    } else {
-        watchlistEl.innerHTML = `
-        <div class="placeholder">
-            <h2>Your watchlist is looking a little empty...</h2>
-            <div class="watchlist-placeholder">
-                <a href="index.html"><i  class="fa-solid fa-circle-plus"></i></a>
-                <p class="watchlist-placeholder-text">Let’s add some movies!</p>
+    if(moviesArrFromLocalStorage){
+        if (moviesArrFromLocalStorage.length > 0) {
+            getWatchlistHtml()
+            .then(html => watchlistEl.innerHTML =html.join(""))
+        } else {
+            watchlistEl.innerHTML = `
+            <div class="placeholder">
+                <h2>Your watchlist is looking a little empty...</h2>
+                <div class="watchlist-placeholder">
+                    <a href="index.html"><i  class="fa-solid fa-circle-plus"></i></a>
+                    <p class="watchlist-placeholder-text">Let’s add some movies!</p>
+                </div>
             </div>
-        </div>
-        `
+            `
+        }
     }
 }
 
