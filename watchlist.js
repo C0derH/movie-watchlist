@@ -16,7 +16,7 @@ function removeMovieFromWatchlist(removeId){
 function getWatchlistHtml(){
     if(moviesArrFromLocalStorage.length > 0){
         const promises = moviesArrFromLocalStorage.map(imdbID => {
-        return fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}&type=movie`)
+        return fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=&type=movie`)
             .then(res => res.json())
             .then(data => {
                 return `

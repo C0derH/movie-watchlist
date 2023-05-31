@@ -25,7 +25,7 @@ function saveMovieToLocalStorage(imdbId){
 function handleSearchBtnClick(){
     const searchBarValue = document.getElementById("search-bar-el").value
     if(searchBarValue){
-        fetch(`http://www.omdbapi.com/?s=${searchBarValue}&apikey=${apiKey}&type=movie`)
+        fetch(`http://www.omdbapi.com/?s=${searchBarValue}&apikey=&type=movie`)
             .then(res => res.json())
             .then(data => {
                 document.getElementById("search-bar-el").value = ""
@@ -46,7 +46,7 @@ function handleSearchBtnClick(){
 
 function getMoviesHtml(movies){
     const promises = movies.map((movie) => {
-        return fetch(`http://www.omdbapi.com/?i=${movie.imdbID}&apikey=${apiKey}&type=movie`)
+        return fetch(`http://www.omdbapi.com/?i=${movie.imdbID}&apikey=&type=movie`)
                 .then(res => res.json())
                 .then(data => {
                     return   `
