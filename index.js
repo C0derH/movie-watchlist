@@ -1,6 +1,6 @@
-
+require('dotenv').config()
 const movieListEl = document.getElementById("movie-list")
-
+const apiKey = process.env.API_KEY
 
 
 document.addEventListener("click",function(e){
@@ -28,7 +28,7 @@ function saveMovieToLocalStorage(imdbId){
 function handleSearchBtnClick(){
     const searchBarValue = document.getElementById("search-bar-el").value
     if(searchBarValue){
-        fetch(`http://www.omdbapi.com/?s=${searchBarValue}&apikey=${process.env.API_KEY}&type=movie`)
+        fetch(`http://www.omdbapi.com/?s=${searchBarValue}&apikey=${apiKey}&type=movie`)
             .then(res => res.json())
             .then(data => {
                 document.getElementById("search-bar-el").value = ""
@@ -49,7 +49,7 @@ function handleSearchBtnClick(){
 
 function getMoviesHtml(movies){
     const promises = movies.map((movie) => {
-        return fetch(`http://www.omdbapi.com/?i=${movie.imdbID}&apikey=${process.env.API_KEY}&type=movie`)
+        return fetch(`http://www.omdbapi.com/?i=${movie.imdbID}&apikey=${apiKey}&type=movie`)
                 .then(res => res.json())
                 .then(data => {
                     return   `
