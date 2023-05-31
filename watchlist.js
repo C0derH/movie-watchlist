@@ -14,8 +14,7 @@ function removeMovieFromWatchlist(removeId){
 } 
 
 function getWatchlistHtml(){
-    if(moviesArrFromLocalStorage){
-        if(moviesArrFromLocalStorage.length > 0){
+        if(moviesArrFromLocalStorage && moviesArrFromLocalStorage.length > 0){
             const promises = moviesArrFromLocalStorage.map(imdbID => {
             return fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=&type=movie`)
                 .then(res => res.json())
@@ -50,27 +49,24 @@ function getWatchlistHtml(){
             })
             return Promise.all(promises)
         }
-    }
 }
 
 
 
 function renderWatchlist() {
-    if(moviesArrFromLocalStorage){
-        if (moviesArrFromLocalStorage.length > 0) {
+    if(moviesArrFromLocalStorage && moviesArrFromLocalStorage.length > 0){
             getWatchlistHtml()
             .then(html => watchlistEl.innerHTML =html.join(""))
-        } else {
-            watchlistEl.innerHTML = `
-            <div class="placeholder">
-                <h2>Your watchlist is looking a little empty...</h2>
-                <div class="watchlist-placeholder">
-                    <a href="index.html"><i  class="fa-solid fa-circle-plus"></i></a>
-                    <p class="watchlist-placeholder-text">Let’s add some movies!</p>
-                </div>
+    }else {
+        watchlistEl.innerHTML = `
+        <div class="placeholder">
+            <h2>Your watchlist is looking a little empty...</h2>
+            <div class="watchlist-placeholder">
+                <a href="index.html"><i  class="fa-solid fa-circle-plus"></i></a>
+                <p class="watchlist-placeholder-text">Let’s add some movies!</p>
             </div>
-            `
-        }
+        </div>
+        `
     }
 }
 
