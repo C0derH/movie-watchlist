@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import dotenv from './node_modules/dotenv'
 dotenv.config()
 const movieListEl = document.getElementById("movie-list")
 const apiKey = process.env.API_KEY
