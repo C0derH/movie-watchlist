@@ -2,7 +2,7 @@ import dotenv from './node_modules/dotenv'
 dotenv.config()
 
 const apiKey = process.env.API_KEY
-
+console.log(apiKey)
 let moviesArrFromLocalStorage = JSON.parse(localStorage.getItem("movies"))
 
 const watchlistEl = document.getElementById("watchlist")
