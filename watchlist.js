@@ -1,6 +1,10 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
+
 const apiKey = process.env.API_KEY
+
 let moviesArrFromLocalStorage = JSON.parse(localStorage.getItem("movies"))
+
 const watchlistEl = document.getElementById("watchlist")
 document.addEventListener("click" , function(e){
     if(e.target.dataset.remove){
